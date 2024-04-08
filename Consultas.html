@@ -1,0 +1,1224 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>PotgreSQL y Docker con Python &#8212; CPython</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=36754332"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'Consultas';</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Criptomoneda Cardano" href="Cardano%20USD.html" />
+    <link rel="prev" title="Introducción" href="Introducci%C3%B3n.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="Introducci%C3%B3n.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/Logo-Uninorte-300x300.png" class="logo__image only-light" alt="CPython - Home"/>
+    <script>document.write(`<img src="_static/Logo-Uninorte-300x300.png" class="logo__image only-dark" alt="CPython - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="Introducci%C3%B3n.html">
+                    Introducción
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#"><strong>PotgreSQL y Docker con Python</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="Cardano%20USD.html"><strong>Criptomoneda Cardano</strong></a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2FConsultas.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/Consultas.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>PotgreSQL y Docker con Python</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#creacion-de-la-conexiony-el-cursor">Creación de la <code class="docutils literal notranslate"><span class="pre">conexión</span></code>y el <code class="docutils literal notranslate"><span class="pre">cursor</span></code>.</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#creacion-de-tablas-employees">Creación de tablas: <code class="docutils literal notranslate"><span class="pre">employees</span></code>.</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#consulta-del-contenido-de-la-tabla-employees">Consulta del contenido de la tabla <code class="docutils literal notranslate"><span class="pre">employees</span></code>.</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#creacion-de-tablas-courses">Creación de tablas: <code class="docutils literal notranslate"><span class="pre">courses</span></code>.</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#insercion-de-datos">Inserción de datos.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#consultas-tabla-courses">Consultas: tabla <code class="docutils literal notranslate"><span class="pre">courses</span></code>.</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#creacion-de-tablas-users">Creación de tablas: <code class="docutils literal notranslate"><span class="pre">users</span></code>.</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Inserción de datos.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#consultas-tabla-users">Consultas: tabla <code class="docutils literal notranslate"><span class="pre">users</span></code>.</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="potgresql-y-docker-con-python">
+<h1><strong>PotgreSQL y Docker con Python</strong><a class="headerlink" href="#potgresql-y-docker-con-python" title="Link to this heading">#</a></h1>
+<section id="creacion-de-la-conexiony-el-cursor">
+<h2>Creación de la <code class="docutils literal notranslate"><span class="pre">conexión</span></code>y el <code class="docutils literal notranslate"><span class="pre">cursor</span></code>.<a class="headerlink" href="#creacion-de-la-conexiony-el-cursor" title="Link to this heading">#</a></h2>
+<p>Cada una de las siguientes tablas y las respctivas consultas se realizaron desde Python usando la API <code class="docutils literal notranslate"><span class="pre">psycopg2</span></code>. Para esto, se creó una <code class="docutils literal notranslate"><span class="pre">conexión</span></code>y un <code class="docutils literal notranslate"><span class="pre">cursor</span></code> de manera previa:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">try</span><span class="p">:</span>
+    <span class="n">connection</span> <span class="o">=</span> <span class="n">psycopg2</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">user</span><span class="o">=</span><span class="s2">&quot;Elianna_user&quot;</span><span class="p">,</span>
+                                  <span class="n">password</span><span class="o">=</span><span class="s2">&quot;password&quot;</span><span class="p">,</span>
+                                  <span class="n">host</span><span class="o">=</span><span class="s2">&quot;localhost&quot;</span><span class="p">,</span>
+                                  <span class="n">port</span><span class="o">=</span><span class="s2">&quot;5432&quot;</span><span class="p">,</span>
+                                  <span class="n">database</span><span class="o">=</span><span class="s2">&quot;Elianna_db&quot;</span><span class="p">)</span>
+
+    <span class="n">cursor</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;PostgreSQL server information&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">connection</span><span class="o">.</span><span class="n">get_dsn_parameters</span><span class="p">(),</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;SELECT version();&quot;</span><span class="p">)</span>
+    <span class="n">record</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;You are connected to - &quot;</span><span class="p">,</span> <span class="n">record</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="k">except</span> <span class="p">(</span><span class="ne">Exception</span><span class="p">,</span> <span class="n">Error</span><span class="p">)</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error while connecting to PostgreSQL&quot;</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span>
+<span class="k">finally</span><span class="p">:</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">connection</span><span class="p">):</span>
+        <span class="n">cursor</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="n">connection</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;PostgreSQL connection is closed&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">2</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="k">try</span><span class="p">:</span>
+<span class="ne">----&gt; </span><span class="mi">2</span>     <span class="n">connection</span> <span class="o">=</span> <span class="n">psycopg2</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">user</span><span class="o">=</span><span class="s2">&quot;Elianna_user&quot;</span><span class="p">,</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span>                                   <span class="n">password</span><span class="o">=</span><span class="s2">&quot;password&quot;</span><span class="p">,</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span>                                   <span class="n">host</span><span class="o">=</span><span class="s2">&quot;localhost&quot;</span><span class="p">,</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span>                                   <span class="n">port</span><span class="o">=</span><span class="s2">&quot;5432&quot;</span><span class="p">,</span>
+<span class="g g-Whitespace">      </span><span class="mi">6</span>                                   <span class="n">database</span><span class="o">=</span><span class="s2">&quot;Elianna_db&quot;</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">8</span>     <span class="n">cursor</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+
+<span class="ne">NameError</span>: name &#39;psycopg2&#39; is not defined
+
+<span class="n">During</span> <span class="n">handling</span> <span class="n">of</span> <span class="n">the</span> <span class="n">above</span> <span class="n">exception</span><span class="p">,</span> <span class="n">another</span> <span class="n">exception</span> <span class="n">occurred</span><span class="p">:</span>
+
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">16</span>
+<span class="g g-Whitespace">     </span><span class="mi">14</span>     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;You are connected to - &quot;</span><span class="p">,</span> <span class="n">record</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="ne">---&gt; </span><span class="mi">16</span> <span class="k">except</span> <span class="p">(</span><span class="ne">Exception</span><span class="p">,</span> <span class="n">Error</span><span class="p">)</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+<span class="g g-Whitespace">     </span><span class="mi">17</span>     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error while connecting to PostgreSQL&quot;</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span>
+
+<span class="ne">NameError</span>: name &#39;Error&#39; is not defined
+
+<span class="n">During</span> <span class="n">handling</span> <span class="n">of</span> <span class="n">the</span> <span class="n">above</span> <span class="n">exception</span><span class="p">,</span> <span class="n">another</span> <span class="n">exception</span> <span class="n">occurred</span><span class="p">:</span>
+
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">19</span>
+<span class="g g-Whitespace">     </span><span class="mi">17</span>     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error while connecting to PostgreSQL&quot;</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">18</span> <span class="k">finally</span><span class="p">:</span>
+<span class="ne">---&gt; </span><span class="mi">19</span>     <span class="k">if</span> <span class="p">(</span><span class="n">connection</span><span class="p">):</span>
+<span class="g g-Whitespace">     </span><span class="mi">20</span>         <span class="n">cursor</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<span class="g g-Whitespace">     </span><span class="mi">21</span>         <span class="n">connection</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+<span class="ne">NameError</span>: name &#39;connection&#39; is not defined
+</pre></div>
+</div>
+</div>
+</div>
+<p>Con el código anterior, primeramente se estableció la conexión con la API <code class="docutils literal notranslate"><span class="pre">psycopg2</span></code>, se proporcionan los párámetros para la conexión: <code class="docutils literal notranslate"><span class="pre">user</span></code>, <code class="docutils literal notranslate"><span class="pre">password</span></code>, <code class="docutils literal notranslate"><span class="pre">host</span></code>, <code class="docutils literal notranslate"><span class="pre">port</span></code> y <code class="docutils literal notranslate"><span class="pre">database</span></code> creadas previamente en el entorno virtul <code class="docutils literal notranslate"><span class="pre">Empresa</span></code> como instancia de base de datos en <code class="docutils literal notranslate"><span class="pre">Docker</span></code>. Se crea el <code class="docutils literal notranslate"><span class="pre">cursor</span></code> y la conexión con éste. Luego se ejecuta la consulta para seleccionar la versión del servicio <code class="docutils literal notranslate"><span class="pre">PotgreSQL</span></code>.</p>
+</section>
+<section id="creacion-de-tablas-employees">
+<h2>Creación de tablas: <code class="docutils literal notranslate"><span class="pre">employees</span></code>.<a class="headerlink" href="#creacion-de-tablas-employees" title="Link to this heading">#</a></h2>
+<p>I) Crear la tabla nombrada: <code class="docutils literal notranslate"><span class="pre">employees</span></code>. <em>(codigo prestablecido en el ejercicio: Ver link en la introducción).</em></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">connection</span> <span class="o">=</span> <span class="n">psycopg2</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">user</span><span class="o">=</span><span class="s2">&quot;Elianna_user&quot;</span><span class="p">,</span>
+                                  <span class="n">password</span><span class="o">=</span><span class="s2">&quot;password&quot;</span><span class="p">,</span>
+                                  <span class="n">host</span><span class="o">=</span><span class="s2">&quot;localhost&quot;</span><span class="p">,</span>
+                                  <span class="n">port</span><span class="o">=</span><span class="s2">&quot;5432&quot;</span><span class="p">,</span>
+                                  <span class="n">database</span><span class="o">=</span><span class="s2">&quot;Elianna_db&quot;</span><span class="p">)</span>
+<span class="n">cursor</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+
+<span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;&#39;&#39;DROP TABLE IF EXISTS employees&#39;&#39;&#39;</span><span class="p">)</span>
+<span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;&#39;&#39;CREATE TABLE employees</span>
+<span class="s1">   ( employee_id INTEGER</span>
+<span class="s1">   , first_name VARCHAR(20)</span>
+<span class="s1">   , last_name VARCHAR(25)</span>
+<span class="s1">   , email VARCHAR(25)</span>
+<span class="s1">   , phone_number VARCHAR(20)</span>
+<span class="s1">   , hire_date DATE</span>
+<span class="s1">   , job_id VARCHAR(10)</span>
+<span class="s1">   , salary NUMERIC(8,2)</span>
+<span class="s1">   , commission_pct NUMERIC(2,2)</span>
+<span class="s1">   , manager_id INTEGER</span>
+<span class="s1">   , department_id INTEGER</span>
+<span class="s1">   ) ;</span>
+<span class="s1">CREATE UNIQUE INDEX emp_emp_id_pk</span>
+<span class="s1">         ON employees (employee_id) ;</span>
+<span class="s1">ALTER TABLE employees ADD</span>
+<span class="s1">   PRIMARY KEY (employee_id);</span>
+<span class="s1">&#39;&#39;&#39;</span><span class="p">)</span>
+<span class="n">connection</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+<span class="n">connection</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Una vez ejecutado el código anterior vamos a <code class="docutils literal notranslate"><span class="pre">PgAdmin</span></code> y verificamos en la ruta Servers &gt; Empresa &gt; Databases &gt; Elianna_db &gt; Schemas &gt; public &gt; Tables, que la tabla <code class="docutils literal notranslate"><span class="pre">employees</span></code> ha sido creada:</p>
+<img src="C:\Users\Eliana Gomez\Pictures\Screenshots\cap1.png">
+<p style="text-align:center;">Tabla employees en la base datos Elianna_db</p><section id="consulta-del-contenido-de-la-tabla-employees">
+<h3>Consulta del contenido de la tabla <code class="docutils literal notranslate"><span class="pre">employees</span></code>.<a class="headerlink" href="#consulta-del-contenido-de-la-tabla-employees" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">connection</span> <span class="o">=</span> <span class="n">psycopg2</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">user</span><span class="o">=</span><span class="s2">&quot;Elianna_user&quot;</span><span class="p">,</span>
+                                <span class="n">password</span><span class="o">=</span><span class="s2">&quot;password&quot;</span><span class="p">,</span>
+                                <span class="n">host</span><span class="o">=</span><span class="s2">&quot;localhost&quot;</span><span class="p">,</span>
+                                <span class="n">port</span><span class="o">=</span><span class="s2">&quot;5432&quot;</span><span class="p">,</span>
+                                <span class="n">database</span><span class="o">=</span><span class="s2">&quot;Elianna_db&quot;</span><span class="p">)</span>
+<span class="n">cursor</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+
+<span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;SELECT * FROM employees LIMIT 10;&quot;</span><span class="p">)</span>
+<span class="n">r</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+    
+<span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;SELECT count(1) FROM employees;&quot;</span><span class="p">)</span>
+<span class="n">r</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+
+<span class="n">connection</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[]
+(0,)
+</pre></div>
+</div>
+</div>
+</div>
+<p>Con esta consulta se seleccionan <code class="docutils literal notranslate"><span class="pre">todas</span> <span class="pre">las</span> <span class="pre">columnas</span></code> de la tabla <code class="docutils literal notranslate"><span class="pre">employees</span></code> y devuelve las <code class="docutils literal notranslate"><span class="pre">primeras</span> <span class="pre">10</span> <span class="pre">filas</span></code> de resultados. Seguidamente, se cuenta el <code class="docutils literal notranslate"><span class="pre">número</span> <span class="pre">total</span> <span class="pre">de</span> <span class="pre">filas</span></code> en la tabla <code class="docutils literal notranslate"><span class="pre">employees</span></code>. En este caso, dado que la tabla aún no contine información, se muestra un vector vacio y el conteo de filas en 0.</p>
+</section>
+</section>
+<section id="creacion-de-tablas-courses">
+<h2>Creación de tablas: <code class="docutils literal notranslate"><span class="pre">courses</span></code>.<a class="headerlink" href="#creacion-de-tablas-courses" title="Link to this heading">#</a></h2>
+<p>II) Crear la tabla <code class="docutils literal notranslate"><span class="pre">courses</span></code> con las siguientes columnas:</p>
+<p><code class="docutils literal notranslate"><span class="pre">course_id</span></code> - integer y primary key.</p>
+<p><code class="docutils literal notranslate"><span class="pre">course_name</span></code> - valores alfanuméricos o de cadena de hasta 60 caracteres.</p>
+<p><code class="docutils literal notranslate"><span class="pre">course_author</span></code> - nombre del autor de hasta 40 caracteres.</p>
+<p><code class="docutils literal notranslate"><span class="pre">course_status</span></code> - published, draft, inactive.</p>
+<p><code class="docutils literal notranslate"><span class="pre">course_published_dt</span> </code>- valor de tipo fecha.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">connection</span> <span class="o">=</span> <span class="n">psycopg2</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">user</span><span class="o">=</span><span class="s2">&quot;Elianna_user&quot;</span><span class="p">,</span>
+                                  <span class="n">password</span><span class="o">=</span><span class="s2">&quot;password&quot;</span><span class="p">,</span>
+                                  <span class="n">host</span><span class="o">=</span><span class="s2">&quot;localhost&quot;</span><span class="p">,</span>
+                                  <span class="n">port</span><span class="o">=</span><span class="s2">&quot;5432&quot;</span><span class="p">,</span>
+                                  <span class="n">database</span><span class="o">=</span><span class="s2">&quot;Elianna_db&quot;</span><span class="p">)</span>
+<span class="n">cursor</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+
+<span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;&#39;&#39;DROP TABLE IF EXISTS courses&#39;&#39;&#39;</span><span class="p">)</span>
+<span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;&#39;&#39;CREATE TABLE courses</span>
+<span class="s1">    (course_id SERIAL PRIMARY KEY</span>
+<span class="s1">   , course_name VARCHAR(60)</span>
+<span class="s1">   , course_author VARCHAR(40)</span>
+<span class="s1">   , course_status VARCHAR</span>
+<span class="s1">   , course_published_dt DATE        </span>
+<span class="s1">    );</span>
+<span class="s1">&#39;&#39;&#39;</span><span class="p">)</span>
+
+<span class="n">connection</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+
+<span class="n">connection</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Una vez ejecutado el código anterior vamos a <code class="docutils literal notranslate"><span class="pre">PgAdmin</span></code> y verificamos en la ruta Servers &gt; Empresa &gt; Databases &gt; Elianna_db &gt; Schemas &gt; public &gt; Tables, que la tabla <code class="docutils literal notranslate"><span class="pre">courses</span></code> ha sido creada:</p>
+<img src="C:\Users\Eliana Gomez\Pictures\Screenshots\cap3.png">
+<p style="text-align:center;">Tabla courses en la base datos Elianna_db</p><section id="insercion-de-datos">
+<h3>Inserción de datos.<a class="headerlink" href="#insercion-de-datos" title="Link to this heading">#</a></h3>
+<p>III) Insertar datos</p>
+<p>Inserte los datos en <code class="docutils literal notranslate"><span class="pre">courses</span></code> utilizando los datos proporcionados <em>(Ver link en la introducción)</em>. Asegúrese de que el <code class="docutils literal notranslate"><span class="pre">id</span></code> es generado por el sistema. No olvide refrescar la información de la base de datos.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">connection</span> <span class="o">=</span> <span class="n">psycopg2</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">user</span><span class="o">=</span><span class="s2">&quot;Elianna_user&quot;</span><span class="p">,</span>
+                                  <span class="n">password</span><span class="o">=</span><span class="s2">&quot;password&quot;</span><span class="p">,</span>
+                                  <span class="n">host</span><span class="o">=</span><span class="s2">&quot;localhost&quot;</span><span class="p">,</span>
+                                  <span class="n">port</span><span class="o">=</span><span class="s2">&quot;5432&quot;</span><span class="p">,</span>
+                                  <span class="n">database</span><span class="o">=</span><span class="s2">&quot;Elianna_db&quot;</span><span class="p">)</span>
+<span class="n">cursor</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+
+<span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;INSERT INTO courses (course_name, course_author, course_status, course_published_dt) VALUES (&#39;Programming using Python&#39;, &#39;Bob Dillon&#39;, &#39;published&#39;, &#39;2020-09-30&#39;)&quot;</span><span class="p">);</span>
+<span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;INSERT INTO courses (course_name, course_author, course_status, course_published_dt) VALUES (&#39;Data Engineering using Python&#39;, &#39;Bob Dillon&#39;, &#39;published&#39;, &#39;2020-07-15&#39;)&quot;</span><span class="p">);</span>
+<span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;INSERT INTO courses (course_name, course_author, course_status, course_published_dt) VALUES (&#39;Data Engineering using Scala&#39;, &#39;Elvis Presley&#39;, &#39;draft&#39;, NULL)&quot;</span><span class="p">);</span>
+<span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;INSERT INTO courses (course_name, course_author, course_status, course_published_dt) VALUES (&#39;Programming using Scala&#39;, &#39;Elvis Presley&#39;, &#39;published&#39;, &#39;2020-05-12&#39;)&quot;</span><span class="p">);</span>
+<span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;INSERT INTO courses (course_name, course_author, course_status, course_published_dt) VALUES (&#39;Programming using Java&#39;, &#39;Mike Jack&#39;, &#39;inactive&#39;, &#39;2020-08-10&#39;)&quot;</span><span class="p">);</span>
+<span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;INSERT INTO courses (course_name, course_author, course_status, course_published_dt) VALUES (&#39;Web Applications-Python Flask&#39;, &#39;Bob Dillon&#39;, &#39;inactive&#39;, &#39;2020-07-20&#39;)&quot;</span><span class="p">);</span>
+<span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;INSERT INTO courses (course_name, course_author, course_status, course_published_dt) VALUES (&#39;Web Applications-Java Scring&#39;, &#39;Mike Jack&#39;, &#39;draft&#39;,NULL)&quot;</span><span class="p">);</span>
+<span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;INSERT INTO courses (course_name, course_author, course_status, course_published_dt) VALUES (&#39;Pipeline Orchestration-Python&#39;, &#39;Bob Dillon&#39;, &#39;draft&#39;,NULL)&quot;</span><span class="p">);</span>
+<span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;INSERT INTO courses (course_name, course_author, course_status, course_published_dt) VALUES (&#39;Streaming Pipelines-Python&#39;, &#39;Bob Dillon&#39;, &#39;published&#39;, &#39;2020-10-05&#39;)&quot;</span><span class="p">);</span>
+<span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;INSERT INTO courses (course_name, course_author, course_status, course_published_dt) VALUES (&#39;Web Applications-Scala Play&#39;, &#39;Elvis Presley&#39;, &#39;inactive&#39;, &#39;2020-09-30&#39;)&quot;</span><span class="p">);</span>
+<span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;INSERT INTO courses (course_name, course_author, course_status, course_published_dt) VALUES (&#39;Web Applications-Python Django&#39;, &#39;Bob Dillon&#39;, &#39;published&#39;, &#39;2020-06-23&#39;)&quot;</span><span class="p">);</span>
+<span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;INSERT INTO courses (course_name, course_author, course_status, course_published_dt) VALUES (&#39;Server Automation-Ansible&#39;, &#39;Uncle Sam&#39;, &#39;published&#39;, &#39;2020-07-05&#39;)&quot;</span><span class="p">);</span>
+
+<span class="n">connection</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+<span class="n">connection</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Una vez ejecutado el código anterior vamos a <code class="docutils literal notranslate"><span class="pre">PgAdmin</span></code> y verificamos en la ruta Servers &gt; Empresa &gt; Databases &gt; Elianna_db &gt; Schemas &gt; public &gt; Tables &gt; courses y seleccionamos la opción <code class="docutils literal notranslate"><span class="pre">All</span> <span class="pre">Rows</span></code> para ver la tabla y su contenido:</p>
+<img src="C:\Users\Eliana Gomez\Pictures\Screenshots\cap4.png">
+<p style="text-align:center;">Tabla courses con valores insertados</p></section>
+<section id="consultas-tabla-courses">
+<h3>Consultas: tabla <code class="docutils literal notranslate"><span class="pre">courses</span></code>.<a class="headerlink" href="#consultas-tabla-courses" title="Link to this heading">#</a></h3>
+<p>IV) Borre todos los cursos que no estén en modo borrador ni publicados. Proporcione la sentencia de borrado como respuesta para este ejercicio en el <code class="docutils literal notranslate"><span class="pre">Jupyter</span> <span class="pre">Book</span></code>. Para validar, obtenga el recuento de todos los cursos publicados por autor y asegúrese de que la salida está ordenada en forma descendente por recuento.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">tabulate</span> <span class="kn">import</span> <span class="n">tabulate</span> 
+<span class="n">connection</span> <span class="o">=</span> <span class="n">psycopg2</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">user</span><span class="o">=</span><span class="s2">&quot;Elianna_user&quot;</span><span class="p">,</span>
+                                  <span class="n">password</span><span class="o">=</span><span class="s2">&quot;password&quot;</span><span class="p">,</span>
+                                  <span class="n">host</span><span class="o">=</span><span class="s2">&quot;localhost&quot;</span><span class="p">,</span>
+                                  <span class="n">port</span><span class="o">=</span><span class="s2">&quot;5432&quot;</span><span class="p">,</span>
+                                  <span class="n">database</span><span class="o">=</span><span class="s2">&quot;Elianna_db&quot;</span><span class="p">)</span>
+<span class="n">cursor</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+
+<span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">    SELECT COUNT(course_name),course_author </span>
+<span class="s2">    FROM courses </span>
+<span class="s2">    WHERE course_status &lt;&gt; &#39;inactive&#39;</span>
+<span class="s2">    GROUP BY course_author</span>
+<span class="s2">    ORDER BY COUNT(course_name) DESC</span>
+<span class="s2">    &quot;&quot;&quot;</span><span class="p">);</span>
+
+<span class="n">r</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">tabulate</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;total published and draft&#39;</span><span class="p">,</span> <span class="s1">&#39;course_author&#39;</span><span class="p">],</span> <span class="n">tablefmt</span><span class="o">=</span><span class="s2">&quot;simlple&quot;</span><span class="p">))</span>
+<span class="n">connection</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  total published and draft  course_author
+---------------------------  ---------------
+                          5  Bob Dillon
+                          2  Elvis Presley
+                          1  Uncle Sam
+                          1  Mike Jack
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="creacion-de-tablas-users">
+<h2>Creación de tablas: <code class="docutils literal notranslate"><span class="pre">users</span></code>.<a class="headerlink" href="#creacion-de-tablas-users" title="Link to this heading">#</a></h2>
+<p>VI) Crear la base de datos <code class="docutils literal notranslate"><span class="pre">users:</span></code>
+<em>(codigo proporcionado por el ejercicio. Ver link en la introducción).</em></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">connection</span> <span class="o">=</span> <span class="n">psycopg2</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">user</span><span class="o">=</span><span class="s2">&quot;Elianna_user&quot;</span><span class="p">,</span>
+                                  <span class="n">password</span><span class="o">=</span><span class="s2">&quot;password&quot;</span><span class="p">,</span>
+                                  <span class="n">host</span><span class="o">=</span><span class="s2">&quot;localhost&quot;</span><span class="p">,</span>
+                                  <span class="n">port</span><span class="o">=</span><span class="s2">&quot;5432&quot;</span><span class="p">,</span>
+                                  <span class="n">database</span><span class="o">=</span><span class="s2">&quot;Elianna_db&quot;</span><span class="p">)</span>
+<span class="n">cursor</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+
+
+<span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;&#39;&#39;DROP TABLE IF EXISTS users&#39;&#39;&#39;</span><span class="p">)</span>
+<span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;&#39;&#39;CREATE TABLE users(</span>
+<span class="s1">    user_id SERIAL PRIMARY KEY,</span>
+<span class="s1">    user_first_name VARCHAR(30),</span>
+<span class="s1">    user_last_name VARCHAR(30),</span>
+<span class="s1">    user_email_id VARCHAR(50),</span>
+<span class="s1">    user_gender VARCHAR(1),</span>
+<span class="s1">    user_unique_id VARCHAR(15),</span>
+<span class="s1">    user_phone_no VARCHAR(20),</span>
+<span class="s1">    user_dob DATE,</span>
+<span class="s1">    created_ts TIMESTAMP)</span>
+<span class="s1">&#39;&#39;&#39;</span><span class="p">);</span>
+
+<span class="n">connection</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+<span class="n">connection</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">connection</span> <span class="o">=</span> <span class="n">psycopg2</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">user</span><span class="o">=</span><span class="s2">&quot;Elianna_user&quot;</span><span class="p">,</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span>                                   <span class="n">password</span><span class="o">=</span><span class="s2">&quot;password&quot;</span><span class="p">,</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span>                                   <span class="n">host</span><span class="o">=</span><span class="s2">&quot;localhost&quot;</span><span class="p">,</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span>                                   <span class="n">port</span><span class="o">=</span><span class="s2">&quot;5432&quot;</span><span class="p">,</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span>                                   <span class="n">database</span><span class="o">=</span><span class="s2">&quot;Elianna_db&quot;</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">6</span> <span class="n">cursor</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+<span class="g g-Whitespace">      </span><span class="mi">9</span> <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;&#39;&#39;DROP TABLE IF EXISTS users&#39;&#39;&#39;</span><span class="p">)</span>
+
+<span class="ne">NameError</span>: name &#39;psycopg2&#39; is not defined
+</pre></div>
+</div>
+</div>
+</div>
+<p>Una vez ejecutado el código anterior vamos a <code class="docutils literal notranslate"><span class="pre">PgAdmin</span></code> y verificamos en la ruta Servers &gt; Empresa &gt; Databases &gt; Elianna_db &gt; Schemas &gt; public &gt; Tables, que la tabla <code class="docutils literal notranslate"><span class="pre">users</span></code> ha sido creada:</p>
+<img src="C:\Users\Eliana Gomez\Pictures\Screenshots\cap5.png">
+<p style="text-align:center;">Tabla users en la base de datos Elianna_db</p><section id="id1">
+<h3>Inserción de datos.<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
+<p>Inserte los valores proporcionados: <em>(Ver link en la instrucción).</em></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">connection</span> <span class="o">=</span> <span class="n">psycopg2</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">user</span><span class="o">=</span><span class="s2">&quot;Elianna_user&quot;</span><span class="p">,</span>
+                                  <span class="n">password</span><span class="o">=</span><span class="s2">&quot;password&quot;</span><span class="p">,</span>
+                                  <span class="n">host</span><span class="o">=</span><span class="s2">&quot;localhost&quot;</span><span class="p">,</span>
+                                  <span class="n">port</span><span class="o">=</span><span class="s2">&quot;5432&quot;</span><span class="p">,</span>
+                                  <span class="n">database</span><span class="o">=</span><span class="s2">&quot;Elianna_db&quot;</span><span class="p">)</span>
+<span class="n">cursor</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+
+<span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;&#39;&#39;</span>
+<span class="s1">    insert into users (</span>
+<span class="s1">    user_first_name, user_last_name, user_email_id, user_gender, </span>
+<span class="s1">    user_unique_id, user_phone_no, user_dob, created_ts)</span>
+<span class="s1">    </span>
+<span class="s1">    VALUES</span>
+<span class="s1">    (&#39;Giuseppe&#39;, &#39;Bode&#39;, &#39;gbode0@imgur.com&#39;, &#39;M&#39;, &#39;88833-8759&#39;, </span>
+<span class="s1">     &#39;+86 (764) 443-1967&#39;, &#39;1973-05-31&#39;, &#39;2018-04-15 12:13:38&#39;),</span>
+<span class="s1">    (&#39;Lexy&#39;, &#39;Gisbey&#39;, &#39;lgisbey1@mail.ru&#39;, &#39;F&#39;, &#39;262501-029&#39;, </span>
+<span class="s1">     &#39;+86 (751) 160-3742&#39;, &#39;2003-05-31&#39;, &#39;2020-12-29 06:44:09&#39;),</span>
+<span class="s1">    (&#39;Karel&#39;, &#39;Claringbold&#39;, &#39;kclaringbold2@yale.edu&#39;, &#39;F&#39;, &#39;391-33-2823&#39;, </span>
+<span class="s1">     &#39;+62 (445) 471-2682&#39;, &#39;1985-11-28&#39;, &#39;2018-11-19 00:04:08&#39;),</span>
+<span class="s1">    (&#39;Marv&#39;, &#39;Tanswill&#39;, &#39;mtanswill3@dedecms.com&#39;, &#39;F&#39;, &#39;1195413-80&#39;, </span>
+<span class="s1">     &#39;+62 (497) 736-6802&#39;, &#39;1998-05-24&#39;, &#39;2018-11-19 16:29:43&#39;),</span>
+<span class="s1">    (&#39;Gertie&#39;, &#39;Espinoza&#39;, &#39;gespinoza4@nationalgeographic.com&#39;, &#39;M&#39;, &#39;471-24-6869&#39;, </span>
+<span class="s1">     &#39;+249 (687) 506-2960&#39;, &#39;1997-10-30&#39;, &#39;2020-01-25 21:31:10&#39;),</span>
+<span class="s1">    (&#39;Saleem&#39;, &#39;Danneil&#39;, &#39;sdanneil5@guardian.co.uk&#39;, &#39;F&#39;, &#39;192374-933&#39;, </span>
+<span class="s1">     &#39;+63 (810) 321-0331&#39;, &#39;1992-03-08&#39;, &#39;2020-11-07 19:01:14&#39;),</span>
+<span class="s1">    (&#39;Rickert&#39;, &#39;O&#39;&#39;Shiels&#39;, &#39;roshiels6@wikispaces.com&#39;, &#39;M&#39;, &#39;749-27-47-52&#39;, </span>
+<span class="s1">     &#39;+86 (184) 759-3933&#39;, &#39;1972-11-01&#39;, &#39;2018-03-20 10:53:24&#39;),</span>
+<span class="s1">    (&#39;Cybil&#39;, &#39;Lissimore&#39;, &#39;clissimore7@pinterest.com&#39;, &#39;M&#39;, &#39;461-75-4198&#39;, </span>
+<span class="s1">     &#39;+54 (613) 939-6976&#39;, &#39;1978-03-03&#39;, &#39;2019-12-09 14:08:30&#39;),</span>
+<span class="s1">    (&#39;Melita&#39;, &#39;Rimington&#39;, &#39;mrimington8@mozilla.org&#39;, &#39;F&#39;, &#39;892-36-676-2&#39;, </span>
+<span class="s1">     &#39;+48 (322) 829-8638&#39;, &#39;1995-12-15&#39;, &#39;2018-04-03 04:21:33&#39;),</span>
+<span class="s1">    (&#39;Benetta&#39;, &#39;Nana&#39;, &#39;bnana9@google.com&#39;, &#39;M&#39;, &#39;197-54-1646&#39;, </span>
+<span class="s1">     &#39;+420 (934) 611-0020&#39;, &#39;1971-12-07&#39;, &#39;2018-10-17 21:02:51&#39;),</span>
+<span class="s1">    (&#39;Gregorius&#39;, &#39;Gullane&#39;, &#39;ggullanea@prnewswire.com&#39;, &#39;F&#39;, &#39;232-55-52-58&#39;, </span>
+<span class="s1">     &#39;+62 (780) 859-1578&#39;, &#39;1973-09-18&#39;, &#39;2020-01-14 23:38:53&#39;),</span>
+<span class="s1">    (&#39;Una&#39;, &#39;Glayzer&#39;, &#39;uglayzerb@pinterest.com&#39;, &#39;M&#39;, &#39;898-84-336-6&#39;, </span>
+<span class="s1">     &#39;+380 (840) 437-3981&#39;, &#39;1983-05-26&#39;, &#39;2019-09-17 03:24:21&#39;),</span>
+<span class="s1">    (&#39;Jamie&#39;, &#39;Vosper&#39;, &#39;jvosperc@umich.edu&#39;, &#39;M&#39;, &#39;247-95-68-44&#39;, </span>
+<span class="s1">     &#39;+81 (205) 723-1942&#39;, &#39;1972-03-18&#39;, &#39;2020-07-23 16:39:33&#39;),</span>
+<span class="s1">    (&#39;Calley&#39;, &#39;Tilson&#39;, &#39;ctilsond@issuu.com&#39;, &#39;F&#39;, &#39;415-48-894-3&#39;, </span>
+<span class="s1">     &#39;+229 (698) 777-4904&#39;, &#39;1987-06-12&#39;, &#39;2020-06-05 12:10:50&#39;),</span>
+<span class="s1">    (&#39;Peadar&#39;, &#39;Gregorowicz&#39;, &#39;pgregorowicze@omniture.com&#39;, &#39;M&#39;, &#39;403-39-5-869&#39;, </span>
+<span class="s1">     &#39;+7 (267) 853-3262&#39;, &#39;1996-09-21&#39;, &#39;2018-05-29 23:51:31&#39;),</span>
+<span class="s1">    (&#39;Jeanie&#39;, &#39;Webling&#39;, &#39;jweblingf@booking.com&#39;, &#39;F&#39;, &#39;399-83-05-03&#39;, </span>
+<span class="s1">     &#39;+351 (684) 413-0550&#39;, &#39;1994-12-27&#39;, &#39;2018-02-09 01:31:11&#39;),</span>
+<span class="s1">    (&#39;Yankee&#39;, &#39;Jelf&#39;, &#39;yjelfg@wufoo.com&#39;, &#39;F&#39;, &#39;607-99-0411&#39;, </span>
+<span class="s1">     &#39;+1 (864) 112-7432&#39;, &#39;1988-11-13&#39;, &#39;2019-09-16 16:09:12&#39;),</span>
+<span class="s1">    (&#39;Blair&#39;, &#39;Aumerle&#39;, &#39;baumerleh@toplist.cz&#39;, &#39;F&#39;, &#39;430-01-578-5&#39;, </span>
+<span class="s1">     &#39;+7 (393) 232-1860&#39;, &#39;1979-11-09&#39;, &#39;2018-10-28 19:25:35&#39;),</span>
+<span class="s1">    (&#39;Pavlov&#39;, &#39;Steljes&#39;, &#39;psteljesi@macromedia.com&#39;, &#39;F&#39;, &#39;571-09-6181&#39;, </span>
+<span class="s1">     &#39;+598 (877) 881-3236&#39;, &#39;1991-06-24&#39;, &#39;2020-09-18 05:34:31&#39;),</span>
+<span class="s1">    (&#39;Darn&#39;, &#39;Hadeke&#39;, &#39;dhadekej@last.fm&#39;, &#39;M&#39;, &#39;478-32-02-87&#39;, </span>
+<span class="s1">     &#39;+370 (347) 110-4270&#39;, &#39;1984-09-04&#39;, &#39;2018-02-10 12:56:00&#39;),</span>
+<span class="s1">    (&#39;Wendell&#39;, &#39;Spanton&#39;, &#39;wspantonk@de.vu&#39;, &#39;F&#39;, null, </span>
+<span class="s1">     &#39;+84 (301) 762-1316&#39;, &#39;1973-07-24&#39;, &#39;2018-01-30 01:20:11&#39;),</span>
+<span class="s1">    (&#39;Carlo&#39;, &#39;Yearby&#39;, &#39;cyearbyl@comcast.net&#39;, &#39;F&#39;, null, </span>
+<span class="s1">     &#39;+55 (288) 623-4067&#39;, &#39;1974-11-11&#39;, &#39;2018-06-24 03:18:40&#39;),</span>
+<span class="s1">    (&#39;Sheila&#39;, &#39;Evitts&#39;, &#39;sevittsm@webmd.com&#39;, null, &#39;830-40-5287&#39;,</span>
+<span class="s1">     null, &#39;1977-03-01&#39;, &#39;2020-07-20 09:59:41&#39;),</span>
+<span class="s1">    (&#39;Sianna&#39;, &#39;Lowdham&#39;, &#39;slowdhamn@stanford.edu&#39;, null, &#39;778-0845&#39;, </span>
+<span class="s1">     null, &#39;1985-12-23&#39;, &#39;2018-06-29 02:42:49&#39;),</span>
+<span class="s1">    (&#39;Phylys&#39;, &#39;Aslie&#39;, &#39;paslieo@qq.com&#39;, &#39;M&#39;, &#39;368-44-4478&#39;, </span>
+<span class="s1">     &#39;+86 (765) 152-8654&#39;, &#39;1984-03-22&#39;, &#39;2019-10-01 01:34:28&#39;)</span>
+<span class="s1">&#39;&#39;&#39;</span><span class="p">)</span>
+<span class="n">connection</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+<span class="n">connection</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Una vez ejecutado el código anterior vamos a <code class="docutils literal notranslate"><span class="pre">PgAdmin</span></code> y verificamos en la ruta Servers &gt; Empresa &gt; Databases &gt; Elianna_db &gt; Schemas &gt; public &gt; Tables &gt; users y seleccionamos la opción <code class="docutils literal notranslate"><span class="pre">All</span> <span class="pre">Rows</span></code> para ver la tabla y su contenido:</p>
+<img src="C:\Users\Eliana Gomez\Pictures\Screenshots\cap6.png">
+<p style="text-align:center;">Tabla users con valores insertados</p></section>
+<section id="consultas-tabla-users">
+<h3>Consultas: tabla <code class="docutils literal notranslate"><span class="pre">users</span></code>.<a class="headerlink" href="#consultas-tabla-users" title="Link to this heading">#</a></h3>
+<p>VII) Obtenga el número de usuarios creados por año. Utilice la tabla de usuarios para este ejercicio.</p>
+<ul class="simple">
+<li><p>La salida debe contener el año de 4 dígitos y el recuento.</p></li>
+<li><p>Use funciones específicas de fecha para obtener el año usando <code class="docutils literal notranslate"><span class="pre">created_ts</span></code>.</p></li>
+<li><p>Asegúrese de definir alias a las columnas como <code class="docutils literal notranslate"><span class="pre">created_year</span></code> y <code class="docutils literal notranslate"><span class="pre">user_count</span></code> respectivamente.</p></li>
+<li><p>Los datos deben ordenarse de forma ascendente por <code class="docutils literal notranslate"><span class="pre">created_year</span></code>.</p></li>
+<li><p>Cuando ejecutes la consulta usando el entorno <code class="docutils literal notranslate"><span class="pre">Jupyter</span></code>, puede que tenga decimales para los enteros. Por lo tanto, puede mostrar los resultados incluso con decimales.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">tabulate</span> <span class="kn">import</span> <span class="n">tabulate</span> 
+<span class="n">connection</span> <span class="o">=</span> <span class="n">psycopg2</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">user</span><span class="o">=</span><span class="s2">&quot;Elianna_user&quot;</span><span class="p">,</span>
+                                  <span class="n">password</span><span class="o">=</span><span class="s2">&quot;password&quot;</span><span class="p">,</span>
+                                  <span class="n">host</span><span class="o">=</span><span class="s2">&quot;localhost&quot;</span><span class="p">,</span>
+                                  <span class="n">port</span><span class="o">=</span><span class="s2">&quot;5432&quot;</span><span class="p">,</span>
+                                  <span class="n">database</span><span class="o">=</span><span class="s2">&quot;Elianna_db&quot;</span><span class="p">)</span>
+<span class="n">cursor</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+
+<span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">    SELECT COUNT (user_id) AS user_count, EXTRACT (YEAR FROM created_ts) AS created_year</span>
+<span class="s2">    FROM users </span>
+<span class="s2">    GROUP BY created_year</span>
+<span class="s2">    ORDER BY (created_year) ASC</span>
+<span class="s2">    &quot;&quot;&quot;</span><span class="p">);</span>
+
+<span class="n">r</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">tabulate</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">headers</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;user_id&#39;</span><span class="p">,</span> <span class="s1">&#39;created_year&#39;</span><span class="p">],</span> <span class="n">tablefmt</span><span class="o">=</span><span class="s2">&quot;simple&quot;</span><span class="p">))</span>
+<span class="n">connection</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  user_id    created_year
+---------  --------------
+       13            2018
+        4            2019
+        8            2020
+</pre></div>
+</div>
+</div>
+</div>
+<p>VIII) Obtenga los días de nacimiento de todos los usuarios nacidos en el mes May.</p>
+<ul class="simple">
+<li><p>Utilice la tabla users para este ejercicio.</p></li>
+<li><p>La salida debe contener <code class="docutils literal notranslate"><span class="pre">user_id</span></code>, <code class="docutils literal notranslate"><span class="pre">user_dob</span></code>, <code class="docutils literal notranslate"><span class="pre">user_email_id</span></code> y <code class="docutils literal notranslate"><span class="pre">user_day_of_birth</span></code>.</p></li>
+<li><p>Utilice funciones específicas de fecha para obtener el mes utilizando <code class="docutils literal notranslate"><span class="pre">user_dob</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">user_day_of_birth</span></code> debe ser un día completo con el primer carácter en mayúsculas, por ejemplo <code class="docutils literal notranslate"><span class="pre">Tuesday</span></code>.</p></li>
+<li><p>Los datos deben ordenarse por día dentro del mes <code class="docutils literal notranslate"><span class="pre">May</span></code>.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">tabulate</span> <span class="kn">import</span> <span class="n">tabulate</span> 
+<span class="n">connection</span> <span class="o">=</span> <span class="n">psycopg2</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">user</span><span class="o">=</span><span class="s2">&quot;Elianna_user&quot;</span><span class="p">,</span>
+                                  <span class="n">password</span><span class="o">=</span><span class="s2">&quot;password&quot;</span><span class="p">,</span>
+                                  <span class="n">host</span><span class="o">=</span><span class="s2">&quot;localhost&quot;</span><span class="p">,</span>
+                                  <span class="n">port</span><span class="o">=</span><span class="s2">&quot;5432&quot;</span><span class="p">,</span>
+                                  <span class="n">database</span><span class="o">=</span><span class="s2">&quot;Elianna_db&quot;</span><span class="p">)</span>
+<span class="n">cursor</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+
+<span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">    SELECT user_id, user_dob, user_email_id,TO_CHAR(user_dob, &#39;FMDay&#39;) AS user_day_of_birth</span>
+<span class="s2">    FROM users</span>
+<span class="s2">    WHERE EXTRACT(MONTH FROM user_dob) = 5</span>
+<span class="s2">    ORDER BY EXTRACT(DAY FROM user_dob);</span>
+<span class="s2">    &quot;&quot;&quot;</span><span class="p">);</span>
+
+<span class="n">r</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">tabulate</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">headers</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;user_id&#39;</span><span class="p">,</span> <span class="s1">&#39;user_dob&#39;</span><span class="p">,</span> <span class="s1">&#39;user_email_id&#39;</span><span class="p">,</span> <span class="s1">&#39;user_day_of_birth&#39;</span><span class="p">]))</span>
+<span class="n">connection</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  user_id  user_dob    user_email_id            user_day_of_birth
+---------  ----------  -----------------------  -------------------
+        4  1998-05-24  mtanswill3@dedecms.com   Sunday
+       12  1983-05-26  uglayzerb@pinterest.com  Thursday
+        1  1973-05-31  gbode0@imgur.com         Thursday
+        2  2003-05-31  lgisbey1@mail.ru         Saturday
+</pre></div>
+</div>
+</div>
+</div>
+<p>IX) Obtenga los nombres e ids de correo electrónico de los usuarios añadidos en el año 2019.</p>
+<ul class="simple">
+<li><p>Utilice la tabla users para este ejercicio.</p></li>
+<li><p>La salida debe contener <code class="docutils literal notranslate"><span class="pre">user_id</span></code>, <code class="docutils literal notranslate"><span class="pre">user_name</span></code>, <code class="docutils literal notranslate"><span class="pre">user_email_id</span></code>, <code class="docutils literal notranslate"><span class="pre">created_ts</span></code>, <code class="docutils literal notranslate"><span class="pre">created_year</span></code>.</p></li>
+<li><p>Utilice funciones específicas de fecha para obtener el año utilizando <code class="docutils literal notranslate"><span class="pre">created_ts</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">user_name</span></code> es una columna derivada de concatenar <code class="docutils literal notranslate"><span class="pre">user_first_name</span></code> y <code class="docutils literal notranslate"><span class="pre">user_last_name</span></code> con un espacio en medio.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">user_name</span></code> debe tener valores en mayúsculas.</p></li>
+<li><p>Los datos deben ordenarse en forma ascendente por <code class="docutils literal notranslate"><span class="pre">user_name</span></code></p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">tabulate</span> <span class="kn">import</span> <span class="n">tabulate</span> 
+<span class="n">connection</span> <span class="o">=</span> <span class="n">psycopg2</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">user</span><span class="o">=</span><span class="s2">&quot;Elianna_user&quot;</span><span class="p">,</span>
+                                  <span class="n">password</span><span class="o">=</span><span class="s2">&quot;password&quot;</span><span class="p">,</span>
+                                  <span class="n">host</span><span class="o">=</span><span class="s2">&quot;localhost&quot;</span><span class="p">,</span>
+                                  <span class="n">port</span><span class="o">=</span><span class="s2">&quot;5432&quot;</span><span class="p">,</span>
+                                  <span class="n">database</span><span class="o">=</span><span class="s2">&quot;Elianna_db&quot;</span><span class="p">)</span>
+<span class="n">cursor</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+
+<span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">    SELECT user_id, UPPER(CONCAT(user_first_name, &#39; &#39;, user_last_name)) AS user_name, user_email_id,created_ts,EXTRACT(YEAR FROM created_ts) AS created_year</span>
+<span class="s2">    FROM users</span>
+<span class="s2">    WHERE EXTRACT(YEAR FROM created_ts) = 2019</span>
+<span class="s2">    ORDER BY user_name ASC;</span>
+<span class="s2">    &quot;&quot;&quot;</span><span class="p">);</span>
+
+<span class="n">r</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">tabulate</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">headers</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;user_id&#39;</span><span class="p">,</span> <span class="s1">&#39;user_name&#39;</span><span class="p">,</span> <span class="s1">&#39;user_email_id&#39;</span><span class="p">,</span> <span class="s1">&#39;created_ts&#39;</span><span class="p">,</span> <span class="s1">&#39;created_year&#39;</span><span class="p">]))</span>
+<span class="n">connection</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  user_id  user_name        user_email_id              created_ts             created_year
+---------  ---------------  -------------------------  -------------------  --------------
+        8  CYBIL LISSIMORE  clissimore7@pinterest.com  2019-12-09 14:08:30            2019
+       25  PHYLYS ASLIE     paslieo@qq.com             2019-10-01 01:34:28            2019
+       12  UNA GLAYZER      uglayzerb@pinterest.com    2019-09-17 03:24:21            2019
+       17  YANKEE JELF      yjelfg@wufoo.com           2019-09-16 16:09:12            2019
+</pre></div>
+</div>
+</div>
+</div>
+<p>X) Obtenga el número de usuarios por género. Utilice la tabla de <code class="docutils literal notranslate"><span class="pre">users</span></code> para este ejercicio.</p>
+<ul class="simple">
+<li><p>La salida debe contener el <code class="docutils literal notranslate"><span class="pre">gender</span></code> y <code class="docutils literal notranslate"><span class="pre">user_count</span></code>.</p></li>
+<li><p>Para los hombres la salida debe mostrar <code class="docutils literal notranslate"><span class="pre">Male</span></code> y para las mujeres la salida debe mostrar <code class="docutils literal notranslate"><span class="pre">Female</span></code>.</p></li>
+<li><p>Si no se especifica el sexo, se mostrará <code class="docutils literal notranslate"><span class="pre">Not</span> <span class="pre">Specified</span></code>.</p></li>
+<li><p>Los datos deben ordenarse en forma descendente por <code class="docutils literal notranslate"><span class="pre">user_count</span></code>.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">tabulate</span> <span class="kn">import</span> <span class="n">tabulate</span>
+<span class="n">connection</span> <span class="o">=</span> <span class="n">psycopg2</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">user</span><span class="o">=</span><span class="s2">&quot;Elianna_user&quot;</span><span class="p">,</span>
+                                  <span class="n">password</span><span class="o">=</span><span class="s2">&quot;password&quot;</span><span class="p">,</span>
+                                  <span class="n">host</span><span class="o">=</span><span class="s2">&quot;localhost&quot;</span><span class="p">,</span>
+                                  <span class="n">port</span><span class="o">=</span><span class="s2">&quot;5432&quot;</span><span class="p">,</span>
+                                  <span class="n">database</span><span class="o">=</span><span class="s2">&quot;Elianna_db&quot;</span><span class="p">)</span>
+<span class="n">cursor</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+
+<span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">   SELECT  CASE  WHEN user_gender = &#39;M&#39; THEN &#39;Male&#39; WHEN user_gender = &#39;F&#39; THEN &#39;Female&#39;ELSE &#39;Not Specified&#39; END AS gender,COUNT(*) AS user_count</span>
+<span class="s2">    FROM users</span>
+<span class="s2">    GROUP BY gender</span>
+<span class="s2">    ORDER BY user_count DESC;</span>
+<span class="s2">    &quot;&quot;&quot;</span><span class="p">);</span>
+
+<span class="n">r</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">tabulate</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">headers</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;user_gender&#39;</span><span class="p">,</span> <span class="s1">&#39;user_count&#39;</span><span class="p">]))</span>
+<span class="n">connection</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>user_gender      user_count
+-------------  ------------
+Female                   13
+Male                     10
+Not Specified             2
+</pre></div>
+</div>
+</div>
+</div>
+<p>XI) Obtenga los 4 últimos dígitos de los ids únicos.</p>
+<ul class="simple">
+<li><p>Utilice la tabla <code class="docutils literal notranslate"><span class="pre">users</span></code> para este ejercicio.</p></li>
+<li><p>El resultado debe contener <code class="docutils literal notranslate"><span class="pre">user_id</span></code>, <code class="docutils literal notranslate"><span class="pre">user_unique_id</span></code> y <code class="docutils literal notranslate"><span class="pre">user_unique_id_last4</span></code>.</p></li>
+<li><p>Los identificadores únicos son <code class="docutils literal notranslate"><span class="pre">null</span></code> o <code class="docutils literal notranslate"><span class="pre">not</span> <span class="pre">null</span></code>.</p></li>
+<li><p>Los identificadores únicos contienen números y guiones y son de diferente longitud.</p></li>
+<li><p>Necesitamos obtener los últimos 4 dígitos descartando los guiones sólo cuando el número de dígitos es al menos 9.</p></li>
+<li><p>Si el identificador único es nulo, debe mostrarse <code class="docutils literal notranslate"><span class="pre">Not</span> <span class="pre">Specified</span></code>.</p></li>
+<li><p>Después de descartar los guiones, si el identificador único tiene menos de 9 dígitos, debe mostrar <code class="docutils literal notranslate"><span class="pre">Invalid</span> <span class="pre">Unique</span> <span class="pre">Id</span></code>.</p></li>
+<li><p>Los datos deben ordenarse por <code class="docutils literal notranslate"><span class="pre">user_id</span></code>. Es posible que aparezca <code class="docutils literal notranslate"><span class="pre">None</span></code> o <code class="docutils literal notranslate"><span class="pre">null</span></code> para aquellos identificadores de usuario en los que no haya un identificador único para <code class="docutils literal notranslate"><span class="pre">user_unique_id</span></code>.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">connection</span> <span class="o">=</span> <span class="n">psycopg2</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">user</span><span class="o">=</span><span class="s2">&quot;Elianna_user&quot;</span><span class="p">,</span>
+                                  <span class="n">password</span><span class="o">=</span><span class="s2">&quot;password&quot;</span><span class="p">,</span>
+                                  <span class="n">host</span><span class="o">=</span><span class="s2">&quot;localhost&quot;</span><span class="p">,</span>
+                                  <span class="n">port</span><span class="o">=</span><span class="s2">&quot;5432&quot;</span><span class="p">,</span>
+                                  <span class="n">database</span><span class="o">=</span><span class="s2">&quot;Elianna_db&quot;</span><span class="p">)</span>
+<span class="n">cursor</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+
+<span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">   SELECT user_id, COALESCE(user_unique_id, &#39;Not Specified&#39;) AS user_unique_id, CASE </span>
+<span class="s2">        WHEN user_unique_id IS NULL THEN &#39;Not Specified&#39;</span>
+<span class="s2">        WHEN LENGTH(REPLACE(user_unique_id, &#39;-&#39;, &#39;&#39;)) &gt;= 9 THEN RIGHT(REPLACE(user_unique_id, &#39;-&#39;, &#39;&#39;), 4)</span>
+<span class="s2">        ELSE &#39;Invalid Unique Id&#39;</span>
+<span class="s2">        END AS user_unique_id_last4</span>
+<span class="s2">    FROM users</span>
+<span class="s2">    ORDER BY user_id;</span>
+<span class="s2">    &quot;&quot;&quot;</span><span class="p">);</span>
+
+<span class="n">r</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">tabulate</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">headers</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;user_id&#39;</span><span class="p">,</span> <span class="s1">&#39;user_unique_id&#39;</span><span class="p">,</span> <span class="s1">&#39;user_unique_id_last4&#39;</span><span class="p">]))</span>
+<span class="n">connection</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  user_id  user_unique_id    user_unique_id_last4
+---------  ----------------  ----------------------
+        1  88833-8759        8759
+        2  262501-029        1029
+        3  391-33-2823       2823
+        4  1195413-80        1380
+        5  471-24-6869       6869
+        6  192374-933        4933
+        7  749-27-47-52      4752
+        8  461-75-4198       4198
+        9  892-36-676-2      6762
+       10  197-54-1646       1646
+       11  232-55-52-58      5258
+       12  898-84-336-6      3366
+       13  247-95-68-44      6844
+       14  415-48-894-3      8943
+       15  403-39-5-869      5869
+       16  399-83-05-03      0503
+       17  607-99-0411       0411
+       18  430-01-578-5      5785
+       19  571-09-6181       6181
+       20  478-32-02-87      0287
+       21  Not Specified     Not Specified
+       22  Not Specified     Not Specified
+       23  830-40-5287       5287
+       24  778-0845          Invalid Unique Id
+       25  368-44-4478       4478
+</pre></div>
+</div>
+</div>
+</div>
+<p>XII) Obtenga el recuento de usuarios en función del código de país.</p>
+<ul class="simple">
+<li><p>Utilice la tabla <code class="docutils literal notranslate"><span class="pre">users</span></code> para este ejercicio.</p></li>
+<li><p>La salida debe contener el código de país y el recuento.</p></li>
+<li><p>No debe haber ningún <code class="docutils literal notranslate"><span class="pre">+</span></code> en el código de país. Sólo debe contener dígitos.</p></li>
+<li><p>Los datos deben ordenarse como números por código de país.</p></li>
+<li><p>Debemos descartar <code class="docutils literal notranslate"><span class="pre">user_phone_no</span></code> con valores <code class="docutils literal notranslate"><span class="pre">null</span></code>.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">tabulate</span> <span class="kn">import</span> <span class="n">tabulate</span> 
+<span class="n">connection</span> <span class="o">=</span> <span class="n">psycopg2</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">user</span><span class="o">=</span><span class="s2">&quot;Elianna_user&quot;</span><span class="p">,</span>
+                                  <span class="n">password</span><span class="o">=</span><span class="s2">&quot;password&quot;</span><span class="p">,</span>
+                                  <span class="n">host</span><span class="o">=</span><span class="s2">&quot;localhost&quot;</span><span class="p">,</span>
+                                  <span class="n">port</span><span class="o">=</span><span class="s2">&quot;5432&quot;</span><span class="p">,</span>
+                                  <span class="n">database</span><span class="o">=</span><span class="s2">&quot;Elianna_db&quot;</span><span class="p">)</span>
+<span class="n">cursor</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+
+<span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">    SELECT CAST(LEFT(SUBSTRING(user_phone_no FROM &#39;\+(\d+)&#39;), POSITION(&#39;(&#39; IN user_phone_no) - 1) AS INTEGER) AS country_code, COUNT(*) AS user_count</span>
+<span class="s2">    FROM users</span>
+<span class="s2">    WHERE user_phone_no IS NOT NULL</span>
+<span class="s2">    GROUP BY country_code</span>
+<span class="s2">    ORDER BY country_code;</span>
+<span class="s2">    &quot;&quot;&quot;</span><span class="p">);</span>
+
+<span class="n">r</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">tabulate</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">headers</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;country_code&#39;</span><span class="p">,</span> <span class="s1">&#39;user_count&#39;</span><span class="p">]))</span>
+<span class="n">connection</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  country_code    user_count
+--------------  ------------
+             1             1
+             7             2
+            48             1
+            54             1
+            55             1
+            62             3
+            63             1
+            81             1
+            84             1
+            86             4
+           229             1
+           249             1
+           351             1
+           370             1
+           380             1
+           420             1
+           598             1
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="Introducci%C3%B3n.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Introducción</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="Cardano%20USD.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><strong>Criptomoneda Cardano</strong></p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#creacion-de-la-conexiony-el-cursor">Creación de la <code class="docutils literal notranslate"><span class="pre">conexión</span></code>y el <code class="docutils literal notranslate"><span class="pre">cursor</span></code>.</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#creacion-de-tablas-employees">Creación de tablas: <code class="docutils literal notranslate"><span class="pre">employees</span></code>.</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#consulta-del-contenido-de-la-tabla-employees">Consulta del contenido de la tabla <code class="docutils literal notranslate"><span class="pre">employees</span></code>.</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#creacion-de-tablas-courses">Creación de tablas: <code class="docutils literal notranslate"><span class="pre">courses</span></code>.</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#insercion-de-datos">Inserción de datos.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#consultas-tabla-courses">Consultas: tabla <code class="docutils literal notranslate"><span class="pre">courses</span></code>.</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#creacion-de-tablas-users">Creación de tablas: <code class="docutils literal notranslate"><span class="pre">users</span></code>.</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Inserción de datos.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#consultas-tabla-users">Consultas: tabla <code class="docutils literal notranslate"><span class="pre">users</span></code>.</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Elianna Gomez & Kadir Ortega - Universidad del Norte 2024
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

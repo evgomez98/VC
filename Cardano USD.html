@@ -1,0 +1,937 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Criptomoneda Cardano &#8212; CPython</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=36754332"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'Cardano USD';</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="PotgreSQL y Docker con Python" href="Consultas.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="Introducci%C3%B3n.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/Logo-Uninorte-300x300.png" class="logo__image only-light" alt="CPython - Home"/>
+    <script>document.write(`<img src="_static/Logo-Uninorte-300x300.png" class="logo__image only-dark" alt="CPython - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="Introducci%C3%B3n.html">
+                    Introducción
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="Consultas.html"><strong>PotgreSQL y Docker con Python</strong></a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#"><strong>Criptomoneda Cardano</strong></a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2FCardano USD.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/Cardano USD.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Criptomoneda Cardano</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#creacion-de-tablas-usdcardano">Creación de tablas: <code class="docutils literal notranslate"><span class="pre">usdcardano</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#candlestick">Candlestick</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analisis-exploratorio-de-datos">Análisis Exploratorio de Datos</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#diagrama-de-dispersion">Diagrama de dispersión</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#diagramas-de-tendencia">Diagramas de tendencia</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#histogramas-de-frecuencia">Histogramas de frecuencia</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#prueba-de-normalidad">Prueba de normalidad</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#diagrama-de-cajas-y-bigotes">Diagrama de cajas y bigotes</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="criptomoneda-cardano">
+<h1><strong>Criptomoneda Cardano</strong><a class="headerlink" href="#criptomoneda-cardano" title="Link to this heading">#</a></h1>
+<p>Importe los datos del precio de <code class="docutils literal notranslate"><span class="pre">Cardano</span> <span class="pre">USD</span> <span class="pre">(ADA-USD)</span></code> en su instancia de base de datos <code class="docutils literal notranslate"><span class="pre">Docker</span></code>, teniendo en cuenta lo explicado durante esta sección. Luego dibuje un gráfico de candlestick para la criptomoneda. <em>(Ver el link en la introducción)</em>. Describa lo que puede observar en la serie de tiempo. Realice un análisis exploratorio de datos <code class="docutils literal notranslate"><span class="pre">(EDA)</span></code> para la serie de tiempo.</p>
+<section id="creacion-de-tablas-usdcardano">
+<h2>Creación de tablas: <code class="docutils literal notranslate"><span class="pre">usdcardano</span></code><a class="headerlink" href="#creacion-de-tablas-usdcardano" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">connection</span> <span class="o">=</span> <span class="n">psycopg2</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">user</span><span class="o">=</span><span class="s2">&quot;Elianna_user&quot;</span><span class="p">,</span>
+                                  <span class="n">password</span><span class="o">=</span><span class="s2">&quot;password&quot;</span><span class="p">,</span>
+                                  <span class="n">host</span><span class="o">=</span><span class="s2">&quot;localhost&quot;</span><span class="p">,</span>
+                                  <span class="n">port</span><span class="o">=</span><span class="s2">&quot;5432&quot;</span><span class="p">,</span>
+                                  <span class="n">database</span><span class="o">=</span><span class="s2">&quot;Elianna_db&quot;</span><span class="p">)</span>
+<span class="n">cursor</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;https://raw.githubusercontent.com/lihkir/Uninorte/main/AppliedStatisticMS/DataVisualizationRPython/Lectures/Python/PythonDataSets/ADA-USD.csv&#39;</span><span class="p">)</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span> <span class="o">=</span> <span class="s1">&#39;Date&#39;</span><span class="p">,</span> <span class="n">ascending</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+
+<span class="n">connection</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+<span class="n">connection</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">connection</span> <span class="o">=</span> <span class="n">psycopg2</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">user</span><span class="o">=</span><span class="s2">&quot;Elianna_user&quot;</span><span class="p">,</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span>                                   <span class="n">password</span><span class="o">=</span><span class="s2">&quot;password&quot;</span><span class="p">,</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span>                                   <span class="n">host</span><span class="o">=</span><span class="s2">&quot;localhost&quot;</span><span class="p">,</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span>                                   <span class="n">port</span><span class="o">=</span><span class="s2">&quot;5432&quot;</span><span class="p">,</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span>                                   <span class="n">database</span><span class="o">=</span><span class="s2">&quot;Elianna_db&quot;</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">6</span> <span class="n">cursor</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+<span class="g g-Whitespace">      </span><span class="mi">8</span> <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;https://raw.githubusercontent.com/lihkir/Uninorte/main/AppliedStatisticMS/DataVisualizationRPython/Lectures/Python/PythonDataSets/ADA-USD.csv&#39;</span><span class="p">)</span>
+
+<span class="ne">NameError</span>: name &#39;psycopg2&#39; is not defined
+</pre></div>
+</div>
+</div>
+</div>
+<p>Inicialmente se crea el DataFrame de los datos del precio de <code class="docutils literal notranslate"><span class="pre">Cardano</span> <span class="pre">USD</span> <span class="pre">(ADA-USD)</span></code> y se organiza de forma ascendente según la fecha. Asimismo, se imprimen las primeras 5 filas para obtener una vusualización prevía de la forma en de la data.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">connection</span> <span class="o">=</span> <span class="n">psycopg2</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">user</span><span class="o">=</span><span class="s2">&quot;Elianna_user&quot;</span><span class="p">,</span>
+                                  <span class="n">password</span><span class="o">=</span><span class="s2">&quot;password&quot;</span><span class="p">,</span>
+                                  <span class="n">host</span><span class="o">=</span><span class="s2">&quot;localhost&quot;</span><span class="p">,</span>
+                                  <span class="n">port</span><span class="o">=</span><span class="s2">&quot;5432&quot;</span><span class="p">,</span>
+                                  <span class="n">database</span><span class="o">=</span><span class="s2">&quot;Elianna_db&quot;</span><span class="p">)</span>
+<span class="n">cursor</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+
+
+<span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;&#39;&#39;DROP TABLE IF EXISTS usdcardano&#39;&#39;&#39;</span><span class="p">)</span>
+<span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;&#39;&#39;CREATE TABLE usdcardano(</span>
+<span class="s1">    Date DATE,</span>
+<span class="s1">    Open NUMERIC, </span>
+<span class="s1">    High NUMERIC, </span>
+<span class="s1">    Low NUMERIC,</span>
+<span class="s1">    Close NUMERIC, </span>
+<span class="s1">    Adj_Close NUMERIC, </span>
+<span class="s1">    Volume NUMERIC)</span>
+<span class="s1">&#39;&#39;&#39;</span><span class="p">);</span>
+
+<span class="n">connection</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+<span class="n">connection</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>En segundo lugar, creamos la tabla donde se alojarán los datos del DataFrame.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">connection</span> <span class="o">=</span> <span class="n">psycopg2</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">user</span><span class="o">=</span><span class="s2">&quot;Elianna_user&quot;</span><span class="p">,</span>
+                                  <span class="n">password</span><span class="o">=</span><span class="s2">&quot;password&quot;</span><span class="p">,</span>
+                                  <span class="n">host</span><span class="o">=</span><span class="s2">&quot;localhost&quot;</span><span class="p">,</span>
+                                  <span class="n">port</span><span class="o">=</span><span class="s2">&quot;5432&quot;</span><span class="p">,</span>
+                                  <span class="n">database</span><span class="o">=</span><span class="s2">&quot;Elianna_db&quot;</span><span class="p">)</span>
+<span class="n">cursor</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+
+<span class="n">query</span> <span class="o">=</span> <span class="s1">&#39;INSERT INTO usdcardano (Date, Open, High, Low, Close, Adj_Close, Volume) VALUES (</span><span class="si">%s</span><span class="s1">, </span><span class="si">%s</span><span class="s1">, </span><span class="si">%s</span><span class="s1">, </span><span class="si">%s</span><span class="s1">, </span><span class="si">%s</span><span class="s1">, </span><span class="si">%s</span><span class="s1">, </span><span class="si">%s</span><span class="s1">)&#39;</span>
+
+<span class="n">val</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">to_records</span><span class="p">(</span><span class="n">index</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> 
+
+<span class="n">cursor</span><span class="o">.</span><span class="n">executemany</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">val</span><span class="p">)</span>
+
+<span class="n">connection</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+<span class="n">connection</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Seguido, se define una cadena de consulta. En esta se especifica los nombres de las columnas en los que se insertarán los datos y utiliza marcadores de posición para los valores que serán proporcionados más adelante.</p>
+<p>Se convierte el DataFrame <code class="docutils literal notranslate"><span class="pre">df</span></code> en un arreglo de registros. Esto transforma el DataFrame en una estructura para ejecutar inserciones de muchos datos en una sola llamada.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">connection</span> <span class="o">=</span> <span class="n">psycopg2</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">user</span><span class="o">=</span><span class="s2">&quot;Elianna_user&quot;</span><span class="p">,</span>
+                                  <span class="n">password</span><span class="o">=</span><span class="s2">&quot;password&quot;</span><span class="p">,</span>
+                                  <span class="n">host</span><span class="o">=</span><span class="s2">&quot;localhost&quot;</span><span class="p">,</span>
+                                  <span class="n">port</span><span class="o">=</span><span class="s2">&quot;5432&quot;</span><span class="p">,</span>
+                                  <span class="n">database</span><span class="o">=</span><span class="s2">&quot;Elianna_db&quot;</span><span class="p">)</span>
+<span class="n">cursor</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+
+<span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;&#39;&#39;  </span>
+<span class="s1">    SELECT * FROM usdcardano</span>
+<span class="s1">&#39;&#39;&#39;</span><span class="p">)</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+<span class="n">data</span> <span class="o">=</span>  <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="n">columns</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">column</span> <span class="ow">in</span> <span class="n">cursor</span><span class="o">.</span><span class="n">description</span><span class="p">:</span>
+    <span class="n">columns</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">column</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    
+<span class="n">data</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">columns</span> 
+
+
+<span class="n">connection</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+<span class="n">connection</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>         date      open      high       low     close adj_close      volume
+0  2017-10-01  0.021678  0.032226  0.017354  0.024969  0.024969  50068700.0
+1  2017-10-02  0.024607  0.030088  0.019969  0.025932  0.025932  57641300.0
+2  2017-10-03  0.025757  0.027425   0.02069  0.020816  0.020816  16997800.0
+3  2017-10-04  0.020864  0.022806  0.020864  0.021931  0.021931   9000050.0
+4  2017-10-05  0.021951  0.022154  0.020859  0.021489  0.021489   5562510.0
+</pre></div>
+</div>
+</div>
+</div>
+<p>Por último, se ejecuta la consulta para seleccionar todos los datos de la tabla usdcardano.
+Los resultados de la consulta se almacenan en las variables de data.</p>
+<p>Una vez ejecutado el código anterior vamos a <code class="docutils literal notranslate"><span class="pre">PgAdmin</span></code> y verificamos en la ruta Servers &gt; Empresa &gt; Databases &gt; Elianna_db &gt; Schemas &gt; public &gt; Tables &gt; usdcardano y seleccionamos la opción <code class="docutils literal notranslate"><span class="pre">All</span> <span class="pre">Rows</span></code> para ver la tabla y su contenido:</p>
+<img src="C:\Users\Eliana Gomez\Pictures\Screenshots\cap7.png">
+<p style="text-align:center;">Tabla usdcardano en la base datos Elianna_db</p></section>
+<section id="candlestick">
+<h2>Candlestick<a class="headerlink" href="#candlestick" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">plotly.graph_objects</span> <span class="k">as</span> <span class="nn">go</span>
+
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">go</span><span class="o">.</span><span class="n">Figure</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="p">[</span><span class="n">go</span><span class="o">.</span><span class="n">Candlestick</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Date&#39;</span><span class="p">],</span>
+                <span class="nb">open</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Open&#39;</span><span class="p">],</span>
+                <span class="n">high</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;High&#39;</span><span class="p">],</span>
+                <span class="n">low</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Low&#39;</span><span class="p">],</span>
+                <span class="n">close</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Close&#39;</span><span class="p">])])</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">update_layout</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;Candlestick - CARDANO USD&#39;</span><span class="p">,</span>
+                   <span class="n">xaxis_title</span><span class="o">=</span><span class="s1">&#39;Date&#39;</span><span class="p">,</span>
+                   <span class="n">yaxis_title</span><span class="o">=</span><span class="s1">&#39;Price&#39;</span><span class="p">,</span>
+                   <span class="n">xaxis_rangeslider_visible</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+</div>
+</div>
+<p>El gráfico de vela japonesa o candlestick nos muestra el comportamiento del precio de apertura y cierre de la criptomoneda Cardano USD. Las velas rojas ilustran los días en los que el precio de apertura es más alto que el precio de cierre, mientra que el verde es el caso opuesto, días en los que el precio de aprtura es más bajo que el de cierre.</p>
+<p>En este también se aprecía una tendecia alcista desde finales del 2017 hasta enero del 2018. En enero del 2018 la tendencia cae hasta llegar a un comportamiento relativamente constante hasta enero del 2021 donde comenzó a aumentar nuevamente, mostrando en adelante esta misma tendencia con relativas fluctuaciones.</p>
+</section>
+<section id="analisis-exploratorio-de-datos">
+<h2>Análisis Exploratorio de Datos<a class="headerlink" href="#analisis-exploratorio-de-datos" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">dtypes</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Date          object
+Open         float64
+High         float64
+Low          float64
+Close        float64
+Adj Close    float64
+Volume       float64
+dtype: object
+</pre></div>
+</div>
+</div>
+</div>
+<p>En primer lugar se verifica a que tipo de dato pertenece cada variable de nuestra data. La variable <code class="docutils literal notranslate"><span class="pre">Date</span></code> se representa como <code class="docutils literal notranslate"><span class="pre">object</span></code>, debido a que esta tiene formato de fecha. Por otro lado, todas la demás corresponden a <code class="docutils literal notranslate"><span class="pre">float64</span></code>, lo que significa que estas columnas contienen números reales de doble precisión de 64 bits.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">missing_values</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span>
+<span class="n">missing_counts</span> <span class="o">=</span> <span class="n">missing_values</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Valores faltantes por columna:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">missing_counts</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Valores faltantes por columna:
+Date         0
+Open         4
+High         4
+Low          4
+Close        4
+Adj Close    4
+Volume       4
+dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+<p>Seguido, verificamos que columnas tienen datos faltantes y cuantos. Se halló que, a excepción de <code class="docutils literal notranslate"><span class="pre">Date</span></code>, todas las columnas tienen un total de 4 celdas sin observación.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">describe</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>              Open         High          Low        Close    Adj Close  \
+count  1471.000000  1471.000000  1471.000000  1471.000000  1471.000000   
+mean      0.374234     0.393359     0.354385     0.375726     0.375726   
+std       0.609602     0.639195     0.578952     0.611501     0.611501   
+min       0.018414     0.021050     0.017354     0.018539     0.018539   
+25%       0.047560     0.049503     0.046073     0.047592     0.047592   
+50%       0.093398     0.096776     0.090105     0.093434     0.093434   
+75%       0.301339     0.318211     0.283567     0.301889     0.301889   
+max       2.966390     3.099186     2.907606     2.968239     2.968239   
+
+             Volume  
+count  1.471000e+03  
+mean   1.090947e+09  
+std    2.258370e+09  
+min    1.739460e+06  
+25%    5.366896e+07  
+50%    1.359691e+08  
+75%    6.999972e+08  
+max    1.914198e+10  
+</pre></div>
+</div>
+</div>
+</div>
+<p>Contamos con 1471 observaciones válidas para el precio de apertura de la criptomoneda Cardano. Por otro lado, el precio medio de apertura en el periodo de tiempo analizado fue de aproximadamente 0.374234 dólares. La desviación del precio de apertura con respecto la media fue de aproximadamente 0.609602 dólares, lo que indica una dispersión considerable en los valores con respecto a la media. Asimismo, tenemos que el 25% de los precios de apertura son menores que 0.047560 dólares, mientras que el 75% son menores que 0.301339 dólares. Además, la mitad de los datos están por encima y la otra mitad por debajo de 0.093398. En cuanto al precio de apertura mínimo registrado, fue 0.018414 dólares y el máximo fue de 2.966390 dólares. High (Precio Máximo), Low (Precio Mínimo), Close (Precio de Cierre), Adj Close (Precio de Cierre Ajustado) presentan un comportamiento similar.</p>
+<p>Por otro lado, el volumen de transacciones de Cardano se comportó así: se registraron 1471 observaciones válidas. El promedio de transacciones fue de 1,090,947,000 unidades. En cuanto a La desviación estándar del volumen de transacciones fue de aproximadamente 2,258,370,000 unidades. El volumen mínimo registrado fue 1,739,460 unidades, mientras que el máximo de transacciones registrado fue de aproximadamente 19,141,980,000 unidades. Además, El 25% del número de transacciones fue menor que aproximadamente 53,668,960 unidades. En cuando al 75% menores que aproximadamente 699,997,200 unidades. La mediana nos indica que la mitad del volumen registrado estuvo por encima y la otra mitad por debajo de 135,969,100unidades.</p>
+<p>También se analizó la correlación entre las variables en cuestión:</p>
+<section id="diagrama-de-dispersion">
+<h3>Diagrama de dispersión<a class="headerlink" href="#diagrama-de-dispersion" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">pairplot</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/5632690cc67bdd03a62e10cacaffe0a7c5fd82762192ef4e83690da4d820520d.png" src="_images/5632690cc67bdd03a62e10cacaffe0a7c5fd82762192ef4e83690da4d820520d.png" />
+</div>
+</div>
+<p>A partir de la gráfica se analiza una alta correlación positiva entre todas las variables, a excepción del volumen de trannsacciones, que no muestra una tendencia en relación con el comportamiento de todas las demás.</p>
+</section>
+<section id="diagramas-de-tendencia">
+<h3>Diagramas de tendencia<a class="headerlink" href="#diagramas-de-tendencia" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">columns_to_plot</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="o">!=</span> <span class="s1">&#39;Date&#39;</span><span class="p">]</span>
+
+<span class="n">num_rows</span> <span class="o">=</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">columns_to_plot</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span>
+<span class="n">num_cols</span> <span class="o">=</span> <span class="mi">2</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">num_rows</span><span class="p">,</span> <span class="n">num_cols</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+
+<span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">axes</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+    <span class="n">axes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">axes</span><span class="p">])</span>
+
+<span class="k">for</span> <span class="n">col</span><span class="p">,</span> <span class="n">ax</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">columns_to_plot</span><span class="p">,</span> <span class="n">axes</span><span class="o">.</span><span class="n">flatten</span><span class="p">()):</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#0CA62F&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Tendencia de </span><span class="si">{</span><span class="n">col</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Índice&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Valor&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="c1"># Eliminar los ejes sobrantes</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">columns_to_plot</span><span class="p">),</span> <span class="n">num_rows</span><span class="o">*</span><span class="n">num_cols</span><span class="p">):</span>
+    <span class="n">axes</span><span class="o">.</span><span class="n">flatten</span><span class="p">()[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/539ea3802eec79e1a8e5c1b85e92d2af28f7c2278e98924ff19426bc1d230a41.png" src="_images/539ea3802eec79e1a8e5c1b85e92d2af28f7c2278e98924ff19426bc1d230a41.png" />
+</div>
+</div>
+<p>En estos gráficos se aprecían las tendecia de el precio de apertura, cirre, precio máximo, mínimo y el volumen de transacciones. Se puede contrastar con el candlestick, notandose claramente el comportamiento de las variables en cuestión.</p>
+</section>
+<section id="histogramas-de-frecuencia">
+<h3>Histogramas de frecuencia<a class="headerlink" href="#histogramas-de-frecuencia" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">columns_to_plot</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="o">!=</span> <span class="s1">&#39;Date&#39;</span><span class="p">]</span>
+
+<span class="n">num_rows</span> <span class="o">=</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">columns_to_plot</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span>
+<span class="n">num_cols</span> <span class="o">=</span> <span class="mi">2</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">num_rows</span><span class="p">,</span> <span class="n">num_cols</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+
+<span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">axes</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+    <span class="n">axes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">axes</span><span class="p">])</span>
+    
+<span class="k">for</span> <span class="n">col</span><span class="p">,</span> <span class="n">ax</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">columns_to_plot</span><span class="p">,</span> <span class="n">axes</span><span class="o">.</span><span class="n">flatten</span><span class="p">()):</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">],</span> <span class="n">bins</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#0CA62F&#39;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Histograma de </span><span class="si">{</span><span class="n">col</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="n">col</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Frecuencia&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+    
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/cad2a40bacd475c5d19b0614ee8516cc9d56180ee9e7f8cbfdce2b28ac4b8d72.png" src="_images/cad2a40bacd475c5d19b0614ee8516cc9d56180ee9e7f8cbfdce2b28ac4b8d72.png" />
+</div>
+</div>
+<p>Los histogramas nos muestran que las variables analizadas tienen una distribución similar, sesgada a la izquierda. Asimismo, indican que ninguna de estads tiene un distribución normal, sin embargo, se precisa una prueba de normalidad para no basar el jucio en métodos puramente gráficos.</p>
+</section>
+<section id="prueba-de-normalidad">
+<h3>Prueba de normalidad<a class="headerlink" href="#prueba-de-normalidad" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">numeric_columns</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">select_dtypes</span><span class="p">(</span><span class="n">include</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;float64&#39;</span><span class="p">])</span>
+
+<span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">numeric_columns</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+    <span class="n">stat</span><span class="p">,</span> <span class="n">p_value</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">normaltest</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">())</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Variable: </span><span class="si">{</span><span class="n">col</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Estadística de prueba: </span><span class="si">{</span><span class="n">stat</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Valor p: </span><span class="si">{</span><span class="n">p_value</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">p_value</span> <span class="o">&lt;</span> <span class="mf">0.05</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;NO proviene de una distribución normal.&#39;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Proviene de una distribución normal.&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;-&#39;</span> <span class="o">*</span> <span class="mi">50</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Variable: Open
+Estadística de prueba: 633.7146501628451
+Valor p: 2.4581714284017565e-138
+NO proviene de una distribución normal.
+--------------------------------------------------
+Variable: High
+Estadística de prueba: 622.7728343098248
+Valor p: 5.842480748099943e-136
+NO proviene de una distribución normal.
+--------------------------------------------------
+Variable: Low
+Estadística de prueba: 645.2044468235598
+Valor p: 7.863837354782638e-141
+NO proviene de una distribución normal.
+--------------------------------------------------
+Variable: Close
+Estadística de prueba: 630.5272729697033
+Valor p: 1.2098800897679065e-137
+NO proviene de una distribución normal.
+--------------------------------------------------
+Variable: Adj Close
+Estadística de prueba: 630.5272729697033
+Valor p: 1.2098800897679065e-137
+NO proviene de una distribución normal.
+--------------------------------------------------
+Variable: Volume
+Estadística de prueba: 1025.8402826030285
+Valor p: 1.7442670454537244e-223
+NO proviene de una distribución normal.
+--------------------------------------------------
+</pre></div>
+</div>
+</div>
+</div>
+<p>Se concluye no normalidad en las varaibles en cuestión.</p>
+</section>
+<section id="diagrama-de-cajas-y-bigotes">
+<h3>Diagrama de cajas y bigotes<a class="headerlink" href="#diagrama-de-cajas-y-bigotes" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="n">gridspec_kw</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;width_ratios&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">]})</span>
+
+<span class="n">columns_to_plot</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="o">!=</span> <span class="s1">&#39;Volume&#39;</span><span class="p">]</span>
+
+<span class="n">df</span><span class="p">[</span><span class="n">columns_to_plot</span><span class="p">]</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">grid</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Boxplot&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>  
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Columnas&#39;</span><span class="p">)</span>
+
+
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Volume&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">())</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Volumen&#39;</span><span class="p">)</span>  
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">([])</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/e50342ca9596bd09bf70c3f5085563a38d148ef833411ed270e2a9d10905c66e.png" src="_images/e50342ca9596bd09bf70c3f5085563a38d148ef833411ed270e2a9d10905c66e.png" />
+</div>
+</div>
+<p>Por último obtenemos el gráfico de cajas y bigotes, nos muestra el commportamiento de la distrubución, por lo que podemos constrastar lo presentado en este gráfico con los histograms de frecuencia. Adicionalmente, se presenta el sesgo de la distribución y la precensia de multiples datos atipicos en el conjunto de datos para cada una de las variables analizadas. Además, se puede realizar el análisis en simultaneo con lo hallado en las medidas de tendencia central, dispersión y de posición.</p>
+<p>En conclusión, el análisis de los datos de la criptomoneda Cardano en dólares revela una amplia variabilidad en los precios de apertura, cierre, máximo y mínimo, así como en el volumen de transacciones. Se observa una alta correlación positiva entre estas variables, excepto para el volumen de transacciones, que parece comportarse de manera diferente. Además, se identifican múltiples valores atípicos en todas las variables, lo que indica la presencia de eventos extremos en los datos. Aunque la distribución de los datos muestra un sesgo hacia la izquierda, se requierió una prueba de normalidad adicional con la que se confirmó esta observación. En general, estos hallazgos proporcionan una visión detallada del comportamiento de Cardano en el mercado de criptomonedas, pero se recomienda realizar análisis estadísticos más avanzados para una comprensión más completa de los datos.</p>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="Consultas.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"><strong>PotgreSQL y Docker con Python</strong></p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#creacion-de-tablas-usdcardano">Creación de tablas: <code class="docutils literal notranslate"><span class="pre">usdcardano</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#candlestick">Candlestick</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analisis-exploratorio-de-datos">Análisis Exploratorio de Datos</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#diagrama-de-dispersion">Diagrama de dispersión</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#diagramas-de-tendencia">Diagramas de tendencia</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#histogramas-de-frecuencia">Histogramas de frecuencia</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#prueba-de-normalidad">Prueba de normalidad</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#diagrama-de-cajas-y-bigotes">Diagrama de cajas y bigotes</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Elianna Gomez & Kadir Ortega - Universidad del Norte 2024
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
